@@ -4,7 +4,7 @@
     type="git"
     src="git://github.com/Ch00k/minute.git"
     contact="ch00k@minuteware.net"
-    name="overnight">
+    name="minute">
       <link>http://github.com/Ch00k/minute</link>
       <description>
         Ch00k's personal Gentoo overlay
