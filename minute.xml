@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layman>
+  <overlay
+    type="git"
+    src="git://github.com/Ch00k/minute.git"
+    contact="ch00k@minuteware.net"
+    name="overnight">
+      <link>http://github.com/Ch00k/minute</link>
+      <description>
+        Ch00k's personal Gentoo overlay
+      </description>
+  </overlay>
+</layman>
