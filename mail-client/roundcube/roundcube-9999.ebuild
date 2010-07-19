@@ -13,7 +13,7 @@ ESVN_REPO_URI="https://svn.roundcube.net/trunk/roundcubemail/"
 # roundcube is GPL-licensed, the rest of the licenses here are
 # for bundled PEAR components, googiespell and utf8.class.php
 LICENSE="GPL-2 BSD PHP-2.02 PHP-3 MIT public-domain"
-KEYWORDS="~amd64 ~arm ~ppc ~ppc64 ~sparc ~x86"
+KEYWORDS=""
 IUSE="ldap mysql postgres ssl spell"
 
 DEPEND=""
