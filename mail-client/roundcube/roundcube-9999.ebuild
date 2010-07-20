@@ -26,7 +26,7 @@ RDEPEND="dev-lang/php[crypt,iconv,json,ldap?,pcre,postgres?,session,spl,ssl?,uni
 need_httpd_cgi
 need_php_httpd
 
-S=${WORKDIR}/${MY_P}
+S=${WORKDIR}/${PN}
 
 pkg_setup() {
 	use mysql && require_php_with_any_use mysql mysqli
