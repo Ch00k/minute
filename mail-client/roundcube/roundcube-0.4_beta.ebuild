@@ -45,8 +45,8 @@ pkg_setup() {
 }
 
 src_prepare() {
-	mv config/db.inc.php{.dist,}
-	mv config/main.inc.php{.dist,}
+	cp config/db.inc.php{.dist,}
+	cp config/main.inc.php{.dist,}
 }
 
 src_install () {
@@ -60,6 +60,7 @@ src_install () {
 	webapp_serverowned "${MY_HTDOCSDIR}"/temp
 
 	webapp_configfile "${MY_HTDOCSDIR}"/config/{db,main}.inc.php
+	webapp_configfile "${MY_HTDOCSDIR}"/config/{db,main}.inc.php.dist
 	webapp_postinst_txt en "${FILESDIR}"/postinstall-en.txt
 	webapp_postupgrade_txt en UPGRADING
 	webapp_src_install
