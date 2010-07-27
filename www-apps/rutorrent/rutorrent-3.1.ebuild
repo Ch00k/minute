@@ -36,6 +36,7 @@ src_install () {
 	webapp_serverowned "${MY_HTDOCSDIR}"/share/settings
 	webapp_serverowned "${MY_HTDOCSDIR}"/share/torrents
 	webapp_serverowned "${MY_HTDOCSDIR}"/share/users
+	webapp_serverowned "${MY_HTDOCSDIR}"/php/test.sh
 
 	webapp_configfile "${MY_HTDOCSDIR}"/conf/access.ini
 	webapp_configfile "${MY_HTDOCSDIR}"/conf/plugins.ini
