@@ -164,8 +164,8 @@ src_install() {
 	update_config
 
 	# docs
-	dodoc AUTHORS README NEWS doc/*.sh
-	newdoc doc/lighttpd.conf lighttpd.conf.distrib
+	dodoc AUTHORS README NEWS doc/scripts/*.sh
+	newdoc doc/config/lighttpd.conf lighttpd.conf.distrib
 
 	use doc && dohtml -r doc/*
 
