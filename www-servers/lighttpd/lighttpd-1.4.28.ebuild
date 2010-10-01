@@ -1,5 +1,6 @@
 # Copyright 1999-2010 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
+# $Header: $
 
 EAPI="2"
 
@@ -11,8 +12,8 @@ SRC_URI="http://download.lighttpd.net/lighttpd/releases-1.4.x/${P}.tar.bz2"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc x86 ~sparc-fbsd ~x86-fbsd"
-IUSE="bzip2 doc fam fastcgi gdbm ipv6 ldap libev lua minimal memcache mysql pcre php rrdtool ssl test webdav xattr"
+KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
+IUSE="bzip2 doc fam fastcgi gdbm ipv6 ldap libev lua memcache minimal mysql pcre php rrdtool ssl test webdav xattr"
 
 RDEPEND="
 	>=sys-libs/zlib-1.1
@@ -42,19 +43,6 @@ DEPEND="${RDEPEND}
 		virtual/perl-Test-Harness
 		dev-libs/fcgi
 	)"
-
-# update certain parts of lighttpd.conf based on conditionals
-update_config() {
-	local config="/etc/lighttpd/lighttpd.conf"
-
-	# enable php/mod_fastcgi settings
-	use php && \
-		dosed 's|#.*\(include.*fastcgi.*$\)|\1|' ${config}
-
-	# enable stat() caching
-	use fam && \
-		dosed 's|#\(.*stat-cache.*$\)|\1|' ${config}
-}
 
 # remove non-essential stuff (for USE=minimal)
 remove_non_essential() {
@@ -151,20 +139,17 @@ src_install() {
 
 	# configs
 	insinto /etc/lighttpd
-	doins "${FILESDIR}"/conf/lighttpd.conf
-	doins "${FILESDIR}"/conf/mime-types.conf
-	doins "${FILESDIR}"/conf/mod_cgi.conf
-	doins "${FILESDIR}"/conf/mod_fastcgi.conf
+	doins "${FILESDIR}"/lighttpd.conf
+	doins "${FILESDIR}"/modules.conf
+	insinto /etc/lighttpd/conf.d
+	doins "${WORKDIR}"/${P}/doc/config/conf.d/*.conf
 	# Secure directory for fastcgi sockets
 	keepdir /var/run/lighttpd/
 	fperms 0750 /var/run/lighttpd/
 	fowners lighttpd:lighttpd /var/run/lighttpd/
 
-	# update lighttpd.conf directives based on conditionals
-	update_config
-
 	# docs
-	dodoc AUTHORS README NEWS doc/scripts/*.sh
+	dodoc AUTHORS COPYING README NEWS doc/scripts/*.sh
 	newdoc doc/config/lighttpd.conf lighttpd.conf.distrib
 
 	use doc && dohtml -r doc/*
@@ -180,34 +165,8 @@ src_install() {
 	fowners lighttpd:lighttpd /var/l{ib,og}/lighttpd
 	fperms 0750 /var/l{ib,og}/lighttpd
 
-	#spawn-fcgi may optionally be installed via www-servers/spawn-fcgi
-	rm -f "${D}"/usr/bin/spawn-fcgi "${D}"/usr/share/man/man1/spawn-fcgi.*
-
+	# remove non-essential stuff
 	use minimal && remove_non_essential
 }
 
-pkg_postinst () {
-	echo
-	if [[ -f ${ROOT}etc/conf.d/spawn-fcgi.conf ]] ; then
-		einfo "spawn-fcgi is now provided by www-servers/spawn-fcgi."
-		einfo "spawn-fcgi's init script configuration is now located"
-		einfo "at /etc/conf.d/spawn-fcgi."
-		echo
-	fi
-
-	if [[ -f ${ROOT}etc/lighttpd.conf ]] ; then
-		ewarn "Gentoo has a customized configuration,"
-		ewarn "which is now located in /etc/lighttpd.  Please migrate your"
-		ewarn "existing configuration."
-		ebeep 5
-	fi
-
-	if use fastcgi; then
-		ewarn "As of lighttpd-1.4.22, spawn-fcgi is provided by the separate"
-		ewarn "www-servers/spawn-fcgi package. Please install it manually, if"
-		ewarn "you use spawn-fcgi."
-		ewarn "It features a new, more featurefull init script - please migrate"
-		ewarn "your configuration!"
-	fi
-}
 
