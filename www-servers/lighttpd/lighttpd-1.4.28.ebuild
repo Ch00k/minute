@@ -12,7 +12,7 @@ SRC_URI="http://download.lighttpd.net/lighttpd/releases-1.4.x/${P}.tar.bz2"
 
 LICENSE="BSD"
 SLOT="0"
-KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~mips ~ppc ~ppc64 ~sh ~sparc ~x86 ~sparc-fbsd ~x86-fbsd"
+KEYWORDS="~amd64 ~x86"
 IUSE="bzip2 doc fam fastcgi gdbm ipv6 ldap libev lua memcache minimal mysql pcre php rrdtool ssl test webdav xattr"
 
 RDEPEND="
@@ -149,7 +149,7 @@ src_install() {
 	fowners lighttpd:lighttpd /var/run/lighttpd/
 
 	# docs
-	dodoc AUTHORS COPYING README NEWS doc/scripts/*.sh
+	dodoc AUTHORS README NEWS doc/scripts/*.sh
 	newdoc doc/config/lighttpd.conf lighttpd.conf.distrib
 
 	use doc && dohtml -r doc/*
@@ -168,5 +168,3 @@ src_install() {
 	# remove non-essential stuff
 	use minimal && remove_non_essential
 }
-
-
