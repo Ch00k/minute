@@ -1,0 +1,2121 @@
+diff -urN lighttpd-1.4.28/doc/config/conf.d/access_log.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/access_log.conf
+--- lighttpd-1.4.28/doc/config/conf.d/access_log.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/access_log.conf	2010-10-22 15:59:08.000000000 +0300
+@@ -1,27 +1,18 @@
+-#######################################################################
+-##
+-## Corresponding documentation:
+-##
+-## http://www.lighttpd.net/documentation/access.html
+-##
++# Corresponding documentation:
++# http://www.lighttpd.net/documentation/access.html
++
+ server.modules += ( "mod_accesslog" )
+ 
+-##
+-## Default access log.
+-##
++# Default access log.
+ accesslog.filename          = log_root + "/access.log"
+ 
+-##
+-## The default format produces CLF compatible output.
+-## For available parameters see access.txt 
+-##
++# The default format produces CLF compatible output.
++# For available parameters see access.txt 
+ #accesslog.format = "%h %l %u %t \"%r\" %b %>s \"%{User-Agent}i\" \"%{Referer}i\""
+ 
+-##
+-## If you want to log to syslog you have to unset the 
+-## accesslog.use-syslog setting and uncomment the next line.
+-##
++
++# If you want to log to syslog you have to unset the 
++# accesslog.use-syslog setting and uncomment the next line.
+ #accesslog.use-syslog       = "enable"
+ 
+-#
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/auth.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/auth.conf
+--- lighttpd-1.4.28/doc/config/conf.d/auth.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/auth.conf	2010-10-22 16:01:04.000000000 +0300
+@@ -1,11 +1,7 @@
+-#######################################################################
+-##
+-##  Authentication Module
+-## -----------------------
+-##
+-## See http://www.lighttpd.net/documentation/authentification.html
+-## for more info.
+-##
++# Authentication Module
++
++# See http://www.lighttpd.net/documentation/authentification.html
++# for more info.
+ 
+ #auth.backend                 = "plain"
+ #auth.backend.plain.userfile  = "/etc/lighttpd/lighttpd.user"
+@@ -23,5 +19,4 @@
+ #                               ),
+ #                             )
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/cgi.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/cgi.conf
+--- lighttpd-1.4.28/doc/config/conf.d/cgi.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/cgi.conf	2010-10-22 16:02:22.000000000 +0300
+@@ -1,33 +1,25 @@
+-#######################################################################
+-##
+-##  CGI modules
+-## --------------- 
+-##
+-## http://www.lighttpd.net/documentation/cgi.html
+-##
++# CGI modules
++
++# http://www.lighttpd.net/documentation/cgi.html
++
+ server.modules += ( "mod_cgi" )
+ 
+-##
+-## Plain old CGI handling
+-##
+-## For PHP don't forget to set cgi.fix_pathinfo = 1 in the php.ini.
+-##
++
++# Plain old CGI handling
++# For PHP don't forget to set cgi.fix_pathinfo = 1 in the php.ini.
+ cgi.assign                 = ( ".pl"  => "/usr/bin/perl",
+                                ".cgi" => "/usr/bin/perl",
+                                ".rb"  => "/usr/bin/ruby",
+                                ".erb" => "/usr/bin/eruby",
+                                ".py"  => "/usr/bin/python" )
+ 
+-##
+-## to get the old cgi-bin behavior of apache
+-##
+-## Note: make sure that mod_alias is loaded if you uncomment the
+-##       next line. (see modules.conf)
+-##
++# to get the old cgi-bin behavior of apache
++# Note: make sure that mod_alias is loaded if you uncomment the
++# next line. (see modules.conf)
++
+ #alias.url += ( "/cgi-bin" => server_root + "/cgi-bin" )
+ #$HTTP["url"] =~ "^/cgi-bin" {
+ #   cgi.assign = ( "" => "" )
+ #}
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/cml.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/cml.conf
+--- lighttpd-1.4.28/doc/config/conf.d/cml.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/cml.conf	2010-10-22 16:03:18.000000000 +0300
+@@ -1,27 +1,17 @@
+-#######################################################################
+-##
+-##  CML Module 
+-## --------------- 
+-##
+-## see http://www.lighttpd.net/documentation/cml.html
+-##
++# CML Module 
++
++# see http://www.lighttpd.net/documentation/cml.html
++
+ server.modules += ( "mod_cml" )
+ index-file.names += ( "index.cml" )
+ 
+-##
+-## The file extension that is bound to the cml-module.
+-##
++# The file extension that is bound to the cml-module.
+ cml.extension               = ".cml"
+ 
+-##
+-## Memcached hosts used for memcache* functions. 
+-##
++# Memcached hosts used for memcache* functions. 
+ #cml.memcache-hosts          = ( "127.0.0.1:11211" )
+ 
+-##
+-## A cml file that is executed for each request. 
+-##
++# A cml file that is executed for each request. 
+ #cml.power-magnet = server_root + "/htdocs/powermagnet.cml"
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/compress.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/compress.conf
+--- lighttpd-1.4.28/doc/config/conf.d/compress.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/compress.conf	2010-10-22 16:04:14.000000000 +0300
+@@ -1,31 +1,20 @@
+-#######################################################################
+-##
+-##  Output Compression 
+-## --------------------
+-##
+-## see http://www.lighttpd.net/documentation/compress.html
+-##
++# Output Compression 
++
++# see http://www.lighttpd.net/documentation/compress.html
++
+ server.modules += ( "mod_compress" )
+ 
+-##
+-## where should the compressed files be cached?
+-## see the base config for the declaration of the variable.
+-##
+-## This directory should be changed per vhost otherwise you can
+-## run into trouble with overlapping filenames
+-##
++# where should the compressed files be cached?
++# see the base config for the declaration of the variable.
++# This directory should be changed per vhost otherwise you can
++# run into trouble with overlapping filenames
+ compress.cache-dir         = cache_dir + "/compress"
+ 
+-##
+-## FileTypes to compress.
+-## 
++# FileTypes to compress.
+ compress.filetype          = ("text/plain", "text/html")
+ 
+-##
+-## Maximum filesize that will be compressed.
+-## Default is 0, which means unlimited file size.
+-## 
++# Maximum filesize that will be compressed.
++# Default is 0, which means unlimited file size.
+ #compress.max-filesize = 0
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/debug.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/debug.conf
+--- lighttpd-1.4.28/doc/config/conf.d/debug.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/debug.conf	2010-10-22 16:05:23.000000000 +0300
+@@ -1,47 +1,27 @@
+-#######################################################################
+-##
+-##  Debug options
+-## ---------------
+-##
+-## Enable those options for debugging the behavior
+-##
+-## The settings can be set per location/vhost.
+-## 
+-
+-## 
+-## log-request-handling allows you to track the request
+-## handing inside lighttpd. 
+-##
++# Debug options
++# Enable those options for debugging the behavior
++
++# The settings can be set per location/vhost.
++ 
++# log-request-handling allows you to track the request
++# handing inside lighttpd. 
+ #debug.log-request-handling        = "enable"
+ 
+-## 
+-## log all request headers. 
+-##
++# log all request headers. 
+ #debug.log-request-header          = "enable"
+ 
+-## 
+-## similar to log-request-header.
+-## but only logs if we encountered an error.
+-## (return codes 400 and 5xx)
+-##
++# similar to log-request-header.
++# but only logs if we encountered an error.
++# (return codes 400 and 5xx)
+ #debug.log-request-header-on-error = "enable"
+ 
+-## 
+-## log the header we send out to the client.
+-##
++# log the header we send out to the client.
+ #debug.log-response-header         = "enable"
+ 
+-## 
+-## log if a file wasnt found in the error log.
+-##
++# log if a file wasnt found in the error log.
+ #debug.log-file-not-found          = "enable"
+ 
+-## 
+-## debug conditionals handling
+-##
++# debug conditionals handling
+ #debug.log-condition-handling      = "enable"
+ 
+-#
+-#######################################################################
+-
+-
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/dirlisting.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/dirlisting.conf
+--- lighttpd-1.4.28/doc/config/conf.d/dirlisting.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/dirlisting.conf	2010-10-22 16:06:59.000000000 +0300
+@@ -1,55 +1,35 @@
+-#######################################################################
+-##
+-##  Dirlisting Module 
+-## ------------------- 
+-##
+-## See http://www.lighttpd.net/documentation/dirlisting.html
+-##
+-
+-##
+-## Enabled Directory listing
+-##
++# Dirlisting Module 
++
++# See http://www.lighttpd.net/documentation/dirlisting.html
++
++# Enabled Directory listing
+ dir-listing.activate      = "disable"
+ 
+-##
+-## Hide dot files from the listing?
+-## By default they are listed.
+-##
++# Hide dot files from the listing?
++# By default they are listed.
+ dir-listing.hide-dotfiles = "disable" 
+ 
+-##
+-## list of regular expressions. Files that match any of the specified
+-## regular expressions will be excluded from directory listings.
+-##
++# list of regular expressions. Files that match any of the specified
++# regular expressions will be excluded from directory listings.
+ dir-listing.exclude       = ( "~$" )
+ 
+-##
+-## set a encoding for the generated directory listing
+-##
+-## If you file-system is not using ASCII you have to set the encoding of
+-## the filenames as they are put into the HTML listing AS IS (with XML
+-## encoding)
+-##
++# set an encoding for the generated directory listing
++# If you file-system is not using ASCII you have to set the encoding of
++# the filenames as they are put into the HTML listing AS IS (with XML
++# encoding)
+ dir-listing.encoding = "UTF-8"
+ 
+-##
+-## Specify the url to an optional CSS file. 
+-##
++# Specify the url to an optional CSS file. 
+ #dir-listing.external-css  = "/dirindex.css"
+ 
+-##
+-## Include HEADER.txt files above the directory listing. 
+-## You can disable showing the HEADER.txt in the listing. 
+-##
++# Include HEADER.txt files above the directory listing. 
++# You can disable showing the HEADER.txt in the listing. 
+ dir-listing.hide-header-file = "disable"
+ dir-listing.show-header = "disable"
+ 
+-##
+-## Include README.txt files above the directory listing. 
+-## You can disable showing the README.txt in the listing. 
+-##
++# Include README.txt files above the directory listing. 
++# You can disable showing the README.txt in the listing. 
+ dir-listing.hide-readme-file = "disable"
+ dir-listing.show-readme = "disable"
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/evhost.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/evhost.conf
+--- lighttpd-1.4.28/doc/config/conf.d/evhost.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/evhost.conf	2010-10-22 16:08:02.000000000 +0300
+@@ -1,22 +1,16 @@
+-#######################################################################
+-##
+-##  Enhanced virtual hosting 
+-## -------------------------- 
+-##
+-## See http://www.lighttpd.net/documentation/evhost.html
+-##
++# Enhanced virtual hosting 
++
++# See http://www.lighttpd.net/documentation/evhost.html
++
+ server.modules += ( "mod_evhost" )
+ 
+-##
+-## define a pattern for the host url finding
+-## %% => % sign
+-## %0 => domain name + tld
+-## %1 => tld
+-## %2 => domain name without tld
+-## %3 => subdomain 1 name
+-## %4 => subdomain 2 name
+-##
++# define a pattern for the host url finding
++# %% => % sign
++# %0 => domain name + tld
++# %1 => tld
++# %2 => domain name without tld
++# %3 => subdomain 1 name
++# %4 => subdomain 2 name
+ evhost.path-pattern        = vhosts_dir + "/%3/htdocs/"
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/expire.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/expire.conf
+--- lighttpd-1.4.28/doc/config/conf.d/expire.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/expire.conf	2010-10-22 16:09:31.000000000 +0300
+@@ -1,22 +1,15 @@
+-#######################################################################
+-##
+-##  Expire Module 
+-## --------------- 
+-##
+-## See http://www.lighttpd.net/documentation/expire.html
+-##
++#  Expire Module 
++
++# See http://www.lighttpd.net/documentation/expire.html
++
+ server.modules += ( "mod_expire" )
+ 
+-##
+-##  assignes a expiration to all files below the specified path. The
+-##  specification of the time is made up of:
+-##
+-##    <access|modification> <number> <years|months|days|hours|minutes|seconds>
+-##    
++# assignes a expiration to all files below the specified path. The
++# specification of the time is made up of:
++# <access|modification> <number> <years|months|days|hours|minutes|seconds>
+ #expire.url = (
+ #  "/buggy/"  => "access 2 hours",
+ #  "/images/" => "access plus 1 seconds 2 minutes"
+ #)
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/fastcgi.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/fastcgi.conf
+--- lighttpd-1.4.28/doc/config/conf.d/fastcgi.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/fastcgi.conf	2010-10-22 16:11:59.000000000 +0300
+@@ -1,24 +1,16 @@
+-#######################################################################
+-##
+-##  FastCGI Module 
+-## --------------- 
+-##
+-## http://www.lighttpd.net/documentation/fastcgi.html
+-##
++# FastCGI Module 
++
++# http://www.lighttpd.net/documentation/fastcgi.html
++
+ server.modules += ( "mod_fastcgi" )
+ 
+-##
+-## PHP Example
+-## For PHP don't forget to set cgi.fix_pathinfo = 1 in the php.ini.
+-##
+-## The number of php processes you will get can be easily calculated:
+-##
+-## num-procs = max-procs * ( 1 + PHP_FCGI_CHILDREN )
+-##
+-## for the php-num-procs example it means you will get 17*5 = 85 php
+-## processes. you always should need this high number for your very
+-## busy sites. And if you have a lot of RAM. :)
+-##
++# PHP Example
++# For PHP don't forget to set cgi.fix_pathinfo = 1 in the php.ini.
++# The number of php processes you will get can be easily calculated:
++# num-procs = max-procs * ( 1 + PHP_FCGI_CHILDREN )
++# for the php-num-procs example it means you will get 17*5 = 85 php
++# processes. you always should need this high number for your very
++# busy sites. And if you have a lot of RAM. :)
+ #fastcgi.server = ( ".php" =>
+ #                   ( "php-local" =>
+ #                     (
+@@ -28,6 +20,7 @@
+ #                       "broken-scriptfilename" => "enable",
+ #                     )
+ #                   ),
++
+ #                   ( "php-tcp" =>
+ #                     (
+ #                       "host" => "127.0.0.1",
+@@ -36,7 +29,7 @@
+ #                       "broken-scriptfilename" => "enable",
+ #                     )
+ #                   ),
+-#
++
+ #                   ( "php-num-procs" =>
+ #                     (
+ #                       "socket" => socket_dir + "/php-fastcgi-2.socket",
+@@ -51,11 +44,8 @@
+ #                   ),
+ #                )
+ 
+-##
+-## Ruby on Rails Example
+-##
+-## Normally you only run one Rails application on one vhost.
+-##
++# Ruby on Rails Example
++# Normally you only run one Rails application on one vhost.
+ #$HTTP["host"] == "rails1.example.com" {
+ #  server.document-root  = server_root + "/rails/someapp/public"
+ #  server.error-handler-404 = "/dispatch.fcgi"
+@@ -72,11 +62,8 @@
+ #  )
+ #}
+ 
+-##
+-## Another example with multiple rails applications on one vhost.
+-##
+-## http://blog.lighttpd.net/articles/2005/11/23/lighttpd-1-4-8-and-multiple-rails-apps
+-##
++# Another example with multiple rails applications on one vhost.
++# http://blog.lighttpd.net/articles/2005/11/23/lighttpd-1-4-8-and-multiple-rails-apps
+ #$HTTP["host"] == "rails2.example.com" {
+ #  $HTTP["url"] =~ "^/someapp1" {
+ #    server.document-root  = server_root + "/rails/someapp1/public"
+@@ -94,7 +81,7 @@
+ #      )
+ #    )
+ #  }
+-#
++
+ #  $HTTP["url"] =~ "^/someapp2" {
+ #    server.document-root  = server_root + "/rails/someapp2/public"
+ #    server.error-handler-404 = "/dispatch.fcgi"
+@@ -113,13 +100,10 @@
+ #  }
+ #}
+ 
+-## chrooted webserver + external PHP
+-##
+-## $ spawn-fcgi -f /usr/bin/php-cgi -p 2000 -a 127.0.0.1 -C 8
+-##
+-## webserver chrooted to /srv/www/
+-## php running outside the chroot
+-#
++# chrooted webserver + external PHP
++# $ spawn-fcgi -f /usr/bin/php-cgi -p 2000 -a 127.0.0.1 -C 8
++# webserver chrooted to /srv/www/
++# php running outside the chroot
+ #fastcgi.server = ( 
+ #  ".php" => (( 
+ #    "host" => "127.0.0.1",
+@@ -129,7 +113,5 @@
+ #
+ #server.chroot = "/srv/www"
+ #server.document-root = "/servers/wwww.example.org/htdocs/"
+-#
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/geoip.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/geoip.conf
+--- lighttpd-1.4.28/doc/config/conf.d/geoip.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/geoip.conf	2010-10-22 16:12:32.000000000 +0300
+@@ -1,26 +1,17 @@
+-#######################################################################
+-##
+-##  GeoIP Module 
+-## --------------- 
+-##
+-## mod_geoip is a module for fast ip/location lookups. It uses MaxMind
+-## GeoIP / GeoCity databases. If the ip was found in the database the
+-## module sets the appropriate environments variables to the request,
+-## thus making other modules/fcgi be informed.
+-##
++# GeoIP Module 
++
++# mod_geoip is a module for fast ip/location lookups. It uses MaxMind
++# GeoIP / GeoCity databases. If the ip was found in the database the
++# module sets the appropriate environments variables to the request,
++# thus making other modules/fcgi be informed.
+ server.modules += ( "mod_geoip" )
+ 
+-##
+-## mod_geoip will determine the database type automatically so if you
+-## enter GeoCity databse path it will load GeoCity Env.
+-##
++# mod_geoip will determine the database type automatically so if you
++# enter GeoCity databse path it will load GeoCity Env.
+ #geoip.db-filename = "/path/to/GeoCityLite.dat"
+ 
+-##
+-## If enabled, mod_geoip will load the database binary file to memory
+-## for very fast lookups. The only penalty is memory usage.
+-##
++# If enabled, mod_geoip will load the database binary file to memory
++# for very fast lookups. The only penalty is memory usage.
+ #geoip.memory-cache = "disable"
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/magnet.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/magnet.conf
+--- lighttpd-1.4.28/doc/config/conf.d/magnet.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/magnet.conf	2010-10-22 16:13:19.000000000 +0300
+@@ -1,22 +1,12 @@
+-#######################################################################
+-##
+-##  Magnet Module 
+-## --------------- 
+-##
+-## see http://trac.lighttpd.net/trac/wiki/Docs%3AModMagnet
+-##
++# Magnet Module 
++
++# see http://trac.lighttpd.net/trac/wiki/Docs%3AModMagnet
+ server.modules += ( "mod_magnet" )
+ 
+-##
+-##
+-##
+ #magnet.attract-raw-url-to = (  )
+ 
+-##
+-## as an example for that see the mod_magnet docs and
+-## http://pixel.global-banlist.de./
+-##
++# as an example for that see the mod_magnet docs and
++# http://pixel.global-banlist.de./
+ #magnet.attract-physical-path-to = ( conf_dir + "/cleanurl.lua" )
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/mime.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/mime.conf
+--- lighttpd-1.4.28/doc/config/conf.d/mime.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/mime.conf	2010-10-22 16:14:28.000000000 +0300
+@@ -1,18 +1,12 @@
+-#######################################################################
+-##
+-##  MimeType handling
+-## -------------------
+-##
+-## http://www.lighttpd.net/documentation/configuration.html#mimetypes
+-##
+-## Use the "Content-Type" extended attribute to obtain mime type if
+-## possible
+-##
++# MimeType handling
++
++# http://www.lighttpd.net/documentation/configuration.html#mimetypes
++
++# Use the "Content-Type" extended attribute to obtain mime type if
++# possible
+ mimetype.use-xattr        = "disable"
+ 
+-##
+-## mimetype mapping
+-##
++# mimetype mapping
+ mimetype.assign             = (
+   ".pdf"          =>      "application/pdf",
+   ".sig"          =>      "application/pgp-signature",
+@@ -67,11 +61,8 @@
+   ".tbz"          =>      "application/x-bzip-compressed-tar",
+   ".tar.bz2"      =>      "application/x-bzip-compressed-tar",
+   ".rpm"          =>      "application/x-rpm",
+-  # make the default mime type application/octet-stream.
++# make the default mime type application/octet-stream.
+   ""              =>      "application/octet-stream",
+  )
+ 
+-
+-#
+-#######################################################################
+-
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/mysql_vhost.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/mysql_vhost.conf
+--- lighttpd-1.4.28/doc/config/conf.d/mysql_vhost.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/mysql_vhost.conf	2010-10-22 16:15:44.000000000 +0300
+@@ -1,47 +1,30 @@
+-#######################################################################
+-##
+-##  Virtual hosting with MySQL 
+-## ----------------------------
+-##
+-## http://www.lighttpd.net/documentation/mysqlvhost.html
+-##
++# Virtual hosting with MySQL 
++
++# http://www.lighttpd.net/documentation/mysqlvhost.html
++
+ server.modules += ( "mod_mysql_vhost" )
+ 
+-## 
+-## Either set the the socket or host (and port)
+-##
+-## Local path to the mysql socket
+-##
++# Either set the the socket or host (and port)
++
++# Local path to the mysql socket
+ #mysql-vhost.sock           = "/var/lib/mysql/mysql.sock"
+ 
+-##
+-## Host of the MySQL server. 
+-##
++# Host of the MySQL server. 
+ #mysql-vhost.hostname       = "localhost"
+ 
+-##
+-## Optional: port to use.
+-##
++# Optional: port to use.
+ #mysql-vhost.port           = 3306
+ 
+-##
+-## Name of the database
+-##
++# Name of the database
+ mysql-vhost.db             = "lighttpd"
+ 
+-##
+-## SQL User/Password for the connection 
+-##
++# SQL User/Password for the connection 
+ mysql-vhost.user           = "lighttpd"
+ mysql-vhost.pass           = "secret"
+ 
+-##
+-## The query to get the needed informations from the database.
+-##
+-## It doesnt matter how you name the fields the first field is always used
+-## as the document root.
+-##
++# The query to get the needed information from the database.
++# It doesnt matter how you name the fields the first field is always used
++# as the document root.
+ mysql-vhost.sql            = "SELECT docroot FROM domains WHERE domain='?'"
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/proxy.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/proxy.conf
+--- lighttpd-1.4.28/doc/config/conf.d/proxy.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/proxy.conf	2010-10-22 16:16:31.000000000 +0300
+@@ -1,27 +1,18 @@
+-#######################################################################
+-##
+-##  Proxy Module 
+-## --------------- 
+-##
+-## http://www.lighttpd.net/documentation/proxy.html
+-##
++# Proxy Module 
++
++# http://www.lighttpd.net/documentation/proxy.html
++
+ server.modules += ( "mod_proxy" )
+ 
+-##
+-## a value between 0 and 65535 to set the debug-level in the Proxy module.
+-## Currently only 0 and 1 are used. Use 1 to enable some debug output, 0 to
+-## disable it. 
+-##
++# a value between 0 and 65535 to set the debug-level in the Proxy module.
++# Currently only 0 and 1 are used. Use 1 to enable some debug output, 0 to
++# disable it. 
+ #proxy.debug = 1
+ 
+-##  
+-## might be one of 'hash', 'round-robin' or 'fair' (default).
+-##  
++# might be one of 'hash', 'round-robin' or 'fair' (default).
+ #proxy.balance = "fair"
+   
+-##
+-## Handle all jsp requests via 192.168.0.101
+-##
++# Handle all jsp requests via 192.168.0.101
+ #proxy.server = ( ".jsp" =>
+ #                 ( "tomcat" =>
+ #                   (
+@@ -31,5 +22,4 @@
+ #                 )
+ #               )
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/rrdtool.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/rrdtool.conf
+--- lighttpd-1.4.28/doc/config/conf.d/rrdtool.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/rrdtool.conf	2010-10-22 16:17:16.000000000 +0300
+@@ -1,21 +1,13 @@
+-#######################################################################
+-##
+-##  RRD Tool Module 
+-## ----------------- 
+-##
+-## see http://www.lighttpd.net/documentation/rrdtool.html
+-##
++#  RRD Tool Module 
++
++# see http://www.lighttpd.net/documentation/rrdtool.html
++
+ server.modules += ( "mod_rrdtool" )
+ 
+-##
+-## Path to the rrdtool binary.
+-##
++# Path to the rrdtool binary.
+ rrdtool.binary             = "/usr/bin/rrdtool"
+ 
+-##
+-## Path to the rrdtool database. You can override this in conditionals.
+-##
++# Path to the rrdtool database. You can override this in conditionals.
+ rrdtool.db-name            = "/var/lib/lighttpd/lighttpd.rrd"
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/scgi.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/scgi.conf
+--- lighttpd-1.4.28/doc/config/conf.d/scgi.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/scgi.conf	2010-10-22 16:18:20.000000000 +0300
+@@ -1,17 +1,12 @@
+-#######################################################################
+-##
+-##  FastCGI Module 
+-## --------------- 
+-##
+-## http://www.lighttpd.net/documentation/scgi.html
+-##
++# FastCGI Module 
++
++# http://www.lighttpd.net/documentation/scgi.html
++
+ server.modules += ( "mod_scgi" )
+ 
+-##
+-## Ruby on Rails Example
+-##
+-## Normally you only run one Rails application on one vhost.
+-##
++# Ruby on Rails Example
++
++# Normally you only run one Rails application on one vhost.
+ #$HTTP["host"] == "rails1.example.com" {
+ #  server.document-root  = server_root + "/rails/someapp/public"
+ #  server.error-handler-404 = "/dispatch.fcgi"
+@@ -28,11 +23,9 @@
+ #  )
+ #}
+ 
+-##
+-## 2nd Ruby on Rails Example
+-##
+-## This time we launch the rails application via scgi_rails externally. 
+-##
++# 2nd Ruby on Rails Example
++
++# This time we launch the rails application via scgi_rails externally. 
+ #$HTTP["host"] == "rails2.example.com" {
+ #  server.document-root  = server_root + "/rails/someapp/public"
+ #  server.error-handler-404 = "/dispatch.scgi"
+@@ -47,5 +40,4 @@
+ #  )
+ #}
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/secdownload.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/secdownload.conf
+--- lighttpd-1.4.28/doc/config/conf.d/secdownload.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/secdownload.conf	2010-10-22 16:19:06.000000000 +0300
+@@ -1,35 +1,22 @@
+-#######################################################################
+-##
+-##  Secure Download Module 
+-## ------------------------ 
+-##
+-## see http://www.lighttpd.net/documentation/secdownload.html
+-##
++# Secure Download Module 
++
++# see http://www.lighttpd.net/documentation/secdownload.html
++
+ server.modules += ( "mod_secdownload" )
+ 
+-##
+-## Document root for the download area.
+-## The directory should not be below your normal 
+-## document root! 
+-##
++# Document root for the download area.
++# The directory should not be below your normal 
++# document root! 
+ #secdownload.document-root = server_root + "/downloads"
+ 
+-##
+-## Secret string that will be used for the checksum calculation.
+-##
++# Secret string that will be used for the checksum calculation.
+ #secdownload.secret = ""
+ 
+-##
+-## How long is the secret valid?
+-##
+-## Default: 60 seconds
+-##
++# How long is the secret valid?
++# Default: 60 seconds
+ #secdownload.timeout = 60
+ 
+-##
+-## Prefix for the download area. 
+-##
++# Prefix for the download area. 
+ #secdownload.uri-prefix = "/download/"
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/simple_vhost.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/simple_vhost.conf
+--- lighttpd-1.4.28/doc/config/conf.d/simple_vhost.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/simple_vhost.conf	2010-10-22 16:20:28.000000000 +0300
+@@ -1,28 +1,21 @@
+-#######################################################################
+-##
+-##  Simple Virtual hosting 
+-## ------------------------ 
+-##
+-## http://www.lighttpd.net/documentation/simple-vhost.html
+-##
++# Simple Virtual hosting 
++
++# http://www.lighttpd.net/documentation/simple-vhost.html
++
+ server.modules += ( "mod_simple_vhost" )
+ 
+-##  If you want name-based virtual hosting add the next three settings and load
+-##  mod_simple_vhost
+-##
+-## document-root =
+-##   virtual-server-root + virtual-server-default-host + virtual-server-docroot
+-## or
+-##   virtual-server-root + http-host + virtual-server-docroot
+-##
++# If you want name-based virtual hosting add the next three settings and load
++# mod_simple_vhost
++# document-root =
++#   virtual-server-root + virtual-server-default-host + virtual-server-docroot
++# or
++#   virtual-server-root + http-host + virtual-server-docroot
++#
+ simple-vhost.server-root   = vhosts_dir + "/"
+-simple-vhost.default-host  = "default.example.com"
++simple-vhost.default-host  = "localhost"
+ simple-vhost.document-root = "/htdocs/"
+ 
+-##
+-## Print some errors for finding the document-root
+-##
++# Print some errors for finding the document-root
+ #simple-vhost.debug = "enable"
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/ssi.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/ssi.conf
+--- lighttpd-1.4.28/doc/config/conf.d/ssi.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/ssi.conf	2010-10-22 16:20:50.000000000 +0300
+@@ -1,16 +1,10 @@
+-#######################################################################
+-##
+-##  Server Side Includes 
+-## -----------------------
+-##
+-## see /usr/share/doc/packages/lighttpd/ssi.html
+-##
++# Server Side Includes 
++
++# see /usr/share/doc/packages/lighttpd/ssi.html
++
+ server.modules += ( "mod_ssi" )
+ 
+-##
+-## which extensions should be ran through mod_ssi.
+-##
++# which extensions should be ran through mod_ssi.
+ ssi.extension              = ( ".shtml" )
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/status.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/status.conf
+--- lighttpd-1.4.28/doc/config/conf.d/status.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/status.conf	2010-10-22 16:21:38.000000000 +0300
+@@ -1,24 +1,19 @@
+-#######################################################################
+-##
+-##  Status Module 
+-## --------------- 
+-##
+-## see http://www.lighttpd.net/documentation/status.html
+-##
++# Status Module 
++
++# see http://www.lighttpd.net/documentation/status.html
++
+ server.modules += ( "mod_status" )
+ 
+ $HTTP["remoteip"] == "127.0.0.0/8" {
+-##
+-## configure urls for the various parts of the module. 
+-##
+-  status.status-url          = "/server-status"
+-  status.config-url          = "/server-config"
+-  status.statistics-url      = "/server-statistics"
+-##
+-## add JavaScript which allows client-side sorting for the connection
+-## overview 
+-##
+-  status.enable-sort         = "enable"
++
++# configure urls for the various parts of the module. 
++status.status-url          = "/server-status"
++status.config-url          = "/server-config"
++status.statistics-url      = "/server-statistics"
++
++# add JavaScript which allows client-side sorting for the connection
++# overview 
++status.enable-sort         = "enable"
+ }
+-##
+-#######################################################################
++
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/trigger_b4_dl.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/trigger_b4_dl.conf
+--- lighttpd-1.4.28/doc/config/conf.d/trigger_b4_dl.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/trigger_b4_dl.conf	2010-10-22 16:23:07.000000000 +0300
+@@ -1,70 +1,45 @@
+-#######################################################################
+-##
+-##  Trigger before download 
+-## --------------- 
+-##
+-## - if user requests ''download-url'' directly, the request is denied
+-##   and he is redirected to ''deny-url'
+-## - if user visits ''trigger-url'' before requesting ''download-url'',
+-##   access is granted
+-## - if user visits ''download-url'' again after ''trigger-timeout'' has
+-##   elapsed, the request is denied and he is redirected to ''deny-url''
+-##
+-## http://www.lighttpd.net/documentation/trigger_b4_dl.html
+-##
++# Trigger before download 
++
++# - if user requests ''download-url'' directly, the request is denied
++#   and he is redirected to ''deny-url'
++# - if user visits ''trigger-url'' before requesting ''download-url'',
++#   access is granted
++# - if user visits ''download-url'' again after ''trigger-timeout'' has
++#   elapsed, the request is denied and he is redirected to ''deny-url''
++
++# http://www.lighttpd.net/documentation/trigger_b4_dl.html
++
+ server.modules += ( "mod_mod_trigger_b4_dl" )
+ 
+-##
+-## To store the trigger state you can either use a local GDBM
+-## file or memcached(s). 
+-##
+-
+-##
+-## Path to the local GDBM file.
+-##
++# To store the trigger state you can either use a local GDBM
++# file or memcached(s). 
++
++# Path to the local GDBM file.
+ trigger-before-download.gdbm-filename = home_dir + "/trigger.db"
+ 
+-##
+-## List of memcached servers.
+-##
++# List of memcached servers.
+ #trigger-before-download.memcache-hosts = ( "127.0.0.1:11211" )
+ 
+-##
+-## URL prefix a visitor has to visit before downloading is allowed 
+-##
++# URL prefix a visitor has to visit before downloading is allowed 
+ trigger-before-download.trigger-url = "^/trigger/"
+ 
+-##
+-## URL Prefix of the proteced area.
+-##
++# URL Prefix of the proteced area.
+ trigger-before-download.download-url = "^/download/"
+ 
+-##
+-## 
+-## The deny url.
+-##
++# The deny url.
+ trigger-before-download.deny-url = "http://www.example.com/index.html"
+ 
+-##
+-## How long the "ticket" of the user will be valid.
+-##
+-## Value in seconds.
+-##
++# How long the "ticket" of the user will be valid.
++# Value in seconds.
+ trigger-before-download.trigger-timeout = 10
+ 
+-##
+-## Normally the memcached key will be the remote ip of the request
+-## If you store other data in the memcached aswell and want to avoid
+-## key collisions you can configure a memcache-namespace.
+-##
+-## The key for the request will be memcache-namespace + remote_ip than.
+-##
++# Normally the memcached key will be the remote ip of the request
++# If you store other data in the memcached aswell and want to avoid
++# key collisions you can configure a memcache-namespace.
++# The key for the request will be memcache-namespace + remote_ip than.
+ #trigger-before-download.memcache-namespace = "t4bdl_"
+ 
+-##
+-## If set to 1, the module will log some debug informations.
+-##
++# If set to 1, the module will log some debug informations.
+ #trigger-before-download.debug = 0
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/userdir.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/userdir.conf
+--- lighttpd-1.4.28/doc/config/conf.d/userdir.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/userdir.conf	2010-10-22 16:23:47.000000000 +0300
+@@ -1,37 +1,25 @@
+-#######################################################################
+-##
+-##  Userdir Module 
+-## ----------------
+-##
+-## for all details see:
+-##   http://www.lighttpd.net/documentation/userdir.html
+-##
++# Userdir Module 
++
++# for all details see:
++# http://www.lighttpd.net/documentation/userdir.html
++
+ server.modules += ( "mod_userdir" )
+ 
+-##
+-## usually it should be set to "public_html" to take ~/public_html/ as
+-## the document root
+-## Default: empty (document root is the home directory)
+-##
++# usually it should be set to "public_html" to take ~/public_html/ as
++# the document root
++# Default: empty (document root is the home directory)
+ userdir.path = "public_html"
+ 
+-##
+-## If set, don't check /etc/passwd for homedir
+-## Default: empty
++# If set, don't check /etc/passwd for homedir
++# Default: empty
+ #userdir.basepath = server_root + "/users/"
+ 
+-##
+-## list of usernames which may not use this feature
+-## Default: empty (all users may use it)
+-##
++# list of usernames which may not use this feature
++# Default: empty (all users may use it)
+ #userdir.exclude-user = ( "root", "postmaster" )
+ 
+-##
+-## if set, only users from this list may use the feature
+-## Default: empty (all users may use it) 
+-##
++# if set, only users from this list may use the feature
++# Default: empty (all users may use it) 
+ #userdir.include-user = ("user1", "user2")
+ 
+-##
+-#######################################################################
+-
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/conf.d/webdav.conf lighttpd-1.4.28_gentoo/doc/config/conf.d/webdav.conf
+--- lighttpd-1.4.28/doc/config/conf.d/webdav.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/conf.d/webdav.conf	2010-10-22 16:24:50.000000000 +0300
+@@ -1,33 +1,21 @@
+-#######################################################################
+-##
+-##  WebDAV Module
+-## ---------------
+-##
+-## http://www.lighttpd.net/documentation/webdav.html
+-##
++# WebDAV Module
++
++# http://www.lighttpd.net/documentation/webdav.html
++
+ server.modules += ( "mod_webdav" )
+ 
+ $HTTP["url"] =~ "^/dav($|/)" {
+-  ##
+-  ## enable webdav for this location
+-  ##
++  # enable webdav for this location
+   webdav.activate = "enable"
+ 
+-  ##
+-  ## By default the webdav url is writable.
+-  ## Uncomment the following line if you want to make it readonly.
+-  ##
++  # By default the webdav url is writable.
++  # Uncomment the following line if you want to make it readonly.
+   #webdav.is-readonly = "enable"
+ 
+-  ##
+-  ## Log the XML Request bodies for debugging
+-  ##
++  # Log the XML Request bodies for debugging
+   #webdav.log-xml = "disable"
+ 
+-  ##
+-  ##  
+-  ##
+   webdav.sqlite-db-name = home_dir + "/webdav.db"
+ }
+-##
+-#######################################################################
++
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/lighttpd.conf lighttpd-1.4.28_gentoo/doc/config/lighttpd.conf
+--- lighttpd-1.4.28/doc/config/lighttpd.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/lighttpd.conf	2010-10-22 20:59:33.000000000 +0300
+@@ -1,426 +1,261 @@
+-#######################################################################
+-##
+-## /etc/lighttpd/lighttpd.conf
+-##
+-## check /etc/lighttpd/conf.d/*.conf for the configuration of modules.
+-##
+-#######################################################################
+-
+-#######################################################################
+-##
+-## Some Variable definition which will make chrooting easier.
+-##
+-## if you add a variable here. Add the corresponding variable in the
+-## chroot example aswell.
+-##
+-var.log_root    = "/var/log/lighttpd"
+-var.server_root = "/srv/www"
+-var.state_dir   = "/var/run"
+-var.home_dir    = "/var/lib/lighttpd"
+-var.conf_dir    = "/etc/lighttpd"
+-
+-## 
+-## run the server chrooted.
+-## 
+-## This requires root permissions during startup.
+-##
+-## If you run Chrooted set the the variables to directories relative to
+-## the chroot dir.
+-##
+-## example chroot configuration:
+-## 
+-#var.log_root    = "/logs"
+-#var.server_root = "/"
+-#var.state_dir   = "/run"
+-#var.home_dir    = "/lib/lighttpd"
+-#var.vhosts_dir  = "/vhosts"
+-#var.conf_dir    = "/etc"
+-#
+-#server.chroot   = "/srv/www"
+-
+-##
+-## Some additional variables to make the configuration easier
+-##
+-
+-##
+-## Base directory for all virtual hosts
+-##
+-## used in:
+-## conf.d/evhost.conf
+-## conf.d/simple_vhost.conf
+-## vhosts.d/vhosts.template
+-##
+-var.vhosts_dir  = server_root + "/vhosts"
+-
+-##
+-## Cache for mod_compress
+-##
+-## used in:
+-## conf.d/compress.conf
+-##
+-var.cache_dir   = "/var/cache/lighttpd"
+-
+-##
+-## Base directory for sockets.
+-##
+-## used in:
+-## conf.d/fastcgi.conf
+-## conf.d/scgi.conf
+-##
+-var.socket_dir  = home_dir + "/sockets"
+-
+-##
+-#######################################################################
+-
+-#######################################################################
+-##
+-## Load the modules.
+-include "modules.conf"
++###############################################################################
++# Default lighttpd.conf for Gentoo.
++# $Header: $
++###############################################################################
++
++# check /etc/lighttpd/conf.d/*.conf for the configuration of modules.
++
++# Some Variable definition which will make chrooting easier.
++# if you add a variable here. Add the corresponding variable in the
++# chroot example aswell.
++var.server_root	= "/var/www/localhost"
++var.log_root	= "/var/log/lighttpd"
++var.state_dir	= "/var/run"
++var.home_dir	= "/var/lib/lighttpd"
++var.conf_dir	= "/etc/lighttpd"
++
++# run the server chrooted.
++# This requires root permissions during startup.
++# If you run Chrooted set the the variables to directories relative to
++# the chroot dir.
++# example chroot configuration:
++#var.log_root		= "/logs"
++#var.server_root	= "/"
++#var.state_dir		= "/run"
++#var.home_dir		= "/lib/lighttpd"
++#var.vhosts_dir		= "/vhosts"
++#var.conf_dir		= "/etc"
++
++#server.chroot		= "/srv/www"
++
++# Some additional variables to make the configuration easier
++# Base directory for all virtual hosts
++# used in:
++# conf.d/evhost.conf
++# conf.d/simple_vhost.conf
++# vhosts.d/vhosts.template
++#var.vhosts_dir  = server_root + "/vhosts"
++
++# Cache for mod_compress
++# used in:
++# conf.d/compress.conf
++#var.cache_dir   = "/var/cache/lighttpd"
++
++# Base directory for sockets.
++# used in:
++# conf.d/fastcgi.conf
++# conf.d/scgi.conf
++var.socket_dir = state_dir + "/lighttpd"
+ 
+-##
+-#######################################################################
++# Load the modules.
++include "modules.conf"
+ 
+-#######################################################################
+-##
+-##  Basic Configuration
+-## ---------------------
+-##
++### Basic Configuration
+ server.port = 80
+ 
+-##
+-## Use IPv6?
+-##
++# Use IPv6?
+ server.use-ipv6 = "enable"
+ 
+-##
+-## bind to a specific IP
+-##
++# bind to a specific IP
+ #server.bind = "localhost"
+ 
+-##
+-## Run as a different username/groupname.
+-## This requires root permissions during startup. 
+-##
+-server.username  = "lighttpd"
+-server.groupname = "lighttpd"
+-
+-## 
+-## enable core files.
+-##
++# Run as a different username/groupname.
++# This requires root permissions during startup. 
++server.username		= "lighttpd"
++server.groupname	= "lighttpd"
++
++# enable core files.
+ #server.core-files = "disable"
+ 
+-##
+-## Document root
+-##
++# Document root
+ server.document-root = server_root + "/htdocs"
+ 
+-##
+-## The value for the "Server:" response field.
+-##
+-## It would be nice to keep it at "lighttpd".
+-##
++# The value for the "Server:" response field.
++# It would be nice to keep it at "lighttpd".
+ #server.tag = "lighttpd"
+ 
+-##
+-## store a pid file
+-##
+-server.pid-file = state_dir + "/lighttpd.pid"
+-
+-##
+-#######################################################################
+-
+-#######################################################################
+-##
+-##  Logging Options
+-## ------------------
+-##
+-## all logging options can be overwritten per vhost.
+-##
+-## Path to the error log file
+-##
+-server.errorlog             = log_root + "/error.log"
+-
+-##
+-## If you want to log to syslog you have to unset the 
+-## server.errorlog setting and uncomment the next line.
+-##
++# store a pid file
++server.pid-file	= state_dir + "/lighttpd.pid"
++
++### Logging Options
++# all logging options can be overwritten per vhost.
++# Path to the error log file
++server.errorlog	= log_root + "/error.log"
++
++# If you want to log to syslog you have to unset the 
++# server.errorlog setting and uncomment the next line.
+ #server.errorlog-use-syslog = "enable"
+ 
+-##
+-## Access log config
+-## 
++# Access log config
+ include "conf.d/access_log.conf"
+ 
+-##
+-## The debug options are moved into their own file.
+-## see conf.d/debug.conf for various options for request debugging.
+-##
++# The debug options are moved into their own file.
++# see conf.d/debug.conf for various options for request debugging.
+ include "conf.d/debug.conf"
+ 
+-##
+-#######################################################################
++### Tuning/Performance
++
++# corresponding documentation:
++# http://www.lighttpd.net/documentation/performance.html
+ 
+-#######################################################################
+-##
+-##  Tuning/Performance
+-## --------------------
+-##
+-## corresponding documentation:
+-## http://www.lighttpd.net/documentation/performance.html
+-##
+-## set the event-handler (read the performance section in the manual)
+-##
+-## possible options on linux are:
+-##
+-## select
+-## poll
+-## linux-sysepoll
+-##
+-## linux-sysepoll is recommended on kernel 2.6.
+-##
++# set the event-handler (read the performance section in the manual)
++# possible options on linux are:
++# select
++# poll
++# linux-sysepoll
++# linux-sysepoll is recommended on kernel 2.6.
+ server.event-handler = "linux-sysepoll"
+ 
+-##
+-## The basic network interface for all platforms at the syscalls read()
+-## and write(). Every modern OS provides its own syscall to help network
+-## servers transfer files as fast as possible 
+-##
+-## linux-sendfile - is recommended for small files.
+-## writev         - is recommended for sending many large files
+-##
++# The basic network interface for all platforms at the syscalls read()
++# and write(). Every modern OS provides its own syscall to help network
++# servers transfer files as fast as possible 
++# linux-sendfile - is recommended for small files.
++# writev         - is recommended for sending many large files
+ server.network-backend = "linux-sendfile"
+ 
+-##
+-## As lighttpd is a single-threaded server, its main resource limit is
+-## the number of file descriptors, which is set to 1024 by default (on
+-## most systems).
+-##
+-## If you are running a high-traffic site you might want to increase this
+-## limit by setting server.max-fds.
+-##
+-## Changing this setting requires root permissions on startup. see
+-## server.username/server.groupname.
+-##
+-## By default lighttpd would not change the operation system default.
+-## But setting it to 2048 is a better default for busy servers.
+-##
++# As lighttpd is a single-threaded server, its main resource limit is
++# the number of file descriptors, which is set to 1024 by default (on
++# most systems).
++# If you are running a high-traffic site you might want to increase this
++# limit by setting server.max-fds.
++# Changing this setting requires root permissions on startup. see
++# server.username/server.groupname.
++# By default lighttpd would not change the operation system default.
++# But setting it to 2048 is a better default for busy servers.
+ server.max-fds = 2048
+ 
+-##
+-## Stat() call caching.
+-##
+-## lighttpd can utilize FAM/Gamin to cache stat call.
+-##
+-## possible values are:
+-## disable, simple or fam.
+-##
++# Stat() call caching.
++# lighttpd can utilize FAM/Gamin to cache stat call.
++# possible values are:
++# disable, simple or fam.
+ server.stat-cache-engine = "simple"
+ 
+-##
+-## Fine tuning for the request handling
+-##
+-## max-connections == max-fds/2 (maybe /3)
+-## means the other file handles are used for fastcgi/files
+-##
++# Fine tuning for the request handling
++# max-connections == max-fds/2 (maybe /3)
++# means the other file handles are used for fastcgi/files
+ server.max-connections = 1024
+ 
+-##
+-## How many seconds to keep a keep-alive connection open,
+-## until we consider it idle. 
+-##
+-## Default: 5
+-##
++# How many seconds to keep a keep-alive connection open,
++# until we consider it idle. 
++# Default: 5
+ #server.max-keep-alive-idle = 5
+ 
+-##
+-## How many keep-alive requests until closing the connection.
+-##
+-## Default: 16
+-##
++# How many keep-alive requests until closing the connection.
++# Default: 16
+ #server.max-keep-alive-requests = 16
+ 
+-##
+-## Maximum size of a request in kilobytes.
+-## By default it is unlimited (0).
+-##
+-## Uploads to your server cant be larger than this value.
+-##
++# Maximum size of a request in kilobytes.
++# By default it is unlimited (0).
++# Uploads to your server cant be larger than this value.
+ #server.max-request-size = 0
+ 
+-##
+-## Time to read from a socket before we consider it idle.
+-##
+-## Default: 60
+-##
++# Time to read from a socket before we consider it idle.
++# Default: 60
+ #server.max-read-idle = 60
+ 
+-##
+-## Time to write to a socket before we consider it idle.
+-##
+-## Default: 360
+-##
++# Time to write to a socket before we consider it idle.
++# Default: 360
+ #server.max-write-idle = 360
+ 
+-##
+-##  Traffic Shaping 
+-## -----------------
+-##
+-## see /usr/share/doc/lighttpd/traffic-shaping.txt
+-##
+-## Values are in kilobyte per second.
+-##
+-## Keep in mind that a limit below 32kB/s might actually limit the
+-## traffic to 32kB/s. This is caused by the size of the TCP send
+-## buffer. 
+-##
+-## per server:
+-##
++### Traffic Shaping 
++
++# see /usr/share/doc/lighttpd/traffic-shaping.txt
++# Values are in kilobyte per second.
++# Keep in mind that a limit below 32kB/s might actually limit the
++# traffic to 32kB/s. This is caused by the size of the TCP send
++# buffer. 
++
++# per server:
+ #server.kbytes-per-second = 128
+ 
+-##
+-## per connection:
+-##
++# per connection:
+ #connection.kbytes-per-second = 32
+ 
+-##
+-#######################################################################
++### Filename/File handling
+ 
+-#######################################################################
+-##
+-##  Filename/File handling
+-## ------------------------
+-
+-##
+-## files to check for if .../ is requested
+-## index-file.names            = ( "index.php", "index.rb", "index.html",
+-##                                 "index.htm", "default.htm" )
+-##
++# files to check for if .../ is requested
++# index-file.names            = ( "index.php", "index.rb", "index.html",
++#                                 "index.htm", "default.htm" )
+ index-file.names += (
+   "index.xhtml", "index.html", "index.htm", "default.htm", "index.php"
+ )
+ 
+-##
+-## deny access the file-extensions
+-##
+-## ~    is for backupfiles from vi, emacs, joe, ...
+-## .inc is often used for code includes which should in general not be part
+-##      of the document-root
++# deny access the file-extensions
++# ~    is for backupfiles from vi, emacs, joe, ...
++# .inc is often used for code includes which should in general not be part
++#      of the document-root
+ url.access-deny             = ( "~", ".inc" )
+ 
+-##
+-## disable range requests for pdf files
+-## workaround for a bug in the Acrobat Reader plugin.
+-##
++# disable range requests for pdf files
++# workaround for a bug in the Acrobat Reader plugin.
+ $HTTP["url"] =~ "\.pdf$" {
+   server.range-requests = "disable"
+ }
+ 
+-##
+-## url handling modules (rewrite, redirect)
+-##
++# url handling modules (rewrite, redirect)
+ #url.rewrite                = ( "^/$"             => "/server-status" )
+ #url.redirect               = ( "^/wishlist/(.+)" => "http://www.example.com/$1" )
+ 
+-##
+-## both rewrite/redirect support back reference to regex conditional using %n
+-##
++# both rewrite/redirect support back reference to regex conditional using %n
+ #$HTTP["host"] =~ "^www\.(.*)" {
+ #  url.redirect            = ( "^/(.*)" => "http://%1/$1" )
+ #}
+ 
+-##
+-## which extensions should not be handle via static-file transfer
+-##
+-## .php, .pl, .fcgi are most often handled by mod_fastcgi or mod_cgi
+-##
+-static-file.exclude-extensions = ( ".php", ".pl", ".fcgi", ".scgi" )
+-
+-##
+-## error-handler for status 404
+-##
++# which extensions should not be handled via static-file transfer
++# .php, .pl, .fcgi are most often handled by mod_fastcgi or mod_cgi
++static-file.exclude-extensions = ( ".php", ".pl", ".cgi" ".fcgi", ".scgi" )
++
++# error-handler for status 404
+ #server.error-handler-404   = "/error-handler.html"
+ #server.error-handler-404   = "/error-handler.php"
+ 
+-##
+-## Format: <errorfile-prefix><status-code>.html
+-## -> ..../status-404.html for 'File not found'
+-##
++# Format: <errorfile-prefix><status-code>.html
++# -> ..../status-404.html for 'File not found'
+ #server.errorfile-prefix    = "/srv/www/htdocs/errors/status-"
+ 
+-##
+-## mimetype mapping
+-##
++# mimetype mapping
+ include "conf.d/mime.conf"
+ 
+-##
+-## directory listing configuration
+-##
++# directory listing configuration
+ include "conf.d/dirlisting.conf"
+ 
+-##
+-## Should lighttpd follow symlinks?
+-## 
++# Should lighttpd follow symlinks?
+ server.follow-symlink = "enable"
+ 
+-##
+-## force all filenames to be lowercase?
+-##
++# force all filenames to be lowercase?
+ #server.force-lowercase-filenames = "disable"
+ 
+-##
+-## defaults to /var/tmp as we assume it is a local harddisk
+-##
+-server.upload-dirs = ( "/var/tmp" )
+-
+-##
+-#######################################################################
+-
+-
+-#######################################################################
+-##
+-##  SSL Support
+-## ------------- 
+-##
+-## To enable SSL for the whole server you have to provide a valid
+-## certificate and have to enable the SSL engine.::
+-##
+-##   ssl.engine = "enable"
+-##   ssl.pemfile = "/path/to/server.pem"
+-##
+-## The HTTPS protocol does not allow you to use name-based virtual
+-## hosting with SSL. If you want to run multiple SSL servers with
+-## one lighttpd instance you must use IP-based virtual hosting: ::
+-##
+-##   $SERVER["socket"] == "10.0.0.1:443" {
+-##     ssl.engine                  = "enable"
+-##     ssl.pemfile                 = "/etc/ssl/private/www.example.com.pem"
+-##     server.name                 = "www.example.com"
+-##
+-##     server.document-root        = "/srv/www/vhosts/example.com/www/"
+-##   }
+-##
+-
+-## If you have a .crt and a .key file, cat them together into a
+-## single PEM file:
+-## $ cat /etc/ssl/private/lighttpd.key /etc/ssl/certs/lighttpd.crt \
+-##   > /etc/ssl/private/lighttpd.pem
+-##
++# defaults to /var/tmp as we assume it is a local harddisk
++#server.upload-dirs = ( "/var/tmp" )
++
++### SSL Support
++
++# To enable SSL for the whole server you have to provide a valid
++# certificate and have to enable the SSL engine.
++#   ssl.engine = "enable"
++#   ssl.pemfile = "/path/to/server.pem"
++
++# The HTTPS protocol does not allow you to use name-based virtual
++# hosting with SSL. If you want to run multiple SSL servers with
++# one lighttpd instance you must use IP-based virtual hosting: ::
++#   $SERVER["socket"] == "10.0.0.1:443" {
++#     ssl.engine                  = "enable"
++#     ssl.pemfile                 = "/etc/ssl/private/www.example.com.pem"
++#     server.name                 = "www.example.com"
++#     server.document-root        = "/srv/www/vhosts/example.com/www/"
++#   }
++
++# If you have a .crt and a .key file, cat them together into a
++# single PEM file:
++# $ cat /etc/ssl/private/lighttpd.key /etc/ssl/certs/lighttpd.crt \
++#   > /etc/ssl/private/lighttpd.pem
+ #ssl.pemfile = "/etc/ssl/private/lighttpd.pem"
+ 
+-##
+-## optionally pass the CA certificate here.
+-##
+-##
++# optionally pass the CA certificate here.
+ #ssl.ca-file = ""
+ 
+-##
+-#######################################################################
+-
+-#######################################################################
+-##
+-## custom includes like vhosts.
+-##
++# custom includes like vhosts.
+ #include "conf.d/config.conf"
+ #include_shell "cat /etc/lighttpd/vhosts.d/*.conf"
+-##
+-#######################################################################
++
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/modules.conf lighttpd-1.4.28_gentoo/doc/config/modules.conf
+--- lighttpd-1.4.28/doc/config/modules.conf	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/modules.conf	2010-10-22 12:24:44.000000000 +0300
+@@ -1,43 +1,32 @@
+-#######################################################################
+-##
+-##  Modules to load
+-## -----------------
+-##
+-## at least mod_access and mod_accesslog should be loaded
+-## all other module should only be loaded if really neccesary
+-##
+-## - saves some time
+-## - saves memory
+-##
+-## the default module set contains:
+-##
+-## "mod_indexfile", "mod_dirlisting", "mod_staticfile"
+-##
+-## you dont have to include those modules in your list
+-##
+-## Modules, which are pulled in via conf.d/*.conf
+-##
+-## NOTE: the order of modules is important.
+-##
+-## - mod_accesslog     -> conf.d/access_log.conf
+-## - mod_compress      -> conf.d/compress.conf
+-## - mod_status        -> conf.d/status.conf
+-## - mod_webdav        -> conf.d/webdav.conf
+-## - mod_cml           -> conf.d/cml.conf
+-## - mod_evhost        -> conf.d/evhost.conf
+-## - mod_simple_vhost  -> conf.d/simple_vhost.conf
+-## - mod_mysql_vhost   -> conf.d/mysql_vhost.conf
+-## - mod_trigger_b4_dl -> conf.d/trigger_b4_dl.conf
+-## - mod_userdir       -> conf.d/userdir.conf
+-## - mod_rrdtool       -> conf.d/rrdtool.conf
+-## - mod_ssi           -> conf.d/ssi.conf
+-## - mod_cgi           -> conf.d/cgi.conf
+-## - mod_scgi          -> conf.d/scgi.conf
+-## - mod_fastcgi       -> conf.d/fastcgi.conf
+-## - mod_proxy         -> conf.d/proxy.conf
+-## - mod_secdownload   -> conf.d/secdownload.conf
+-## - mod_expire        -> conf.d/expire.conf
+-##
++### Modules to load
++
++# at least mod_access and mod_accesslog should be loaded
++# all other module should only be loaded if really neccesary
++# - saves some time
++# - saves memory
++# the default module set contains:
++# "mod_indexfile", "mod_dirlisting", "mod_staticfile"
++# you dont have to include those modules in your list
++# Modules, which are pulled in via conf.d/*.conf
++# NOTE: the order of modules is important.
++# - mod_accesslog     -> conf.d/access_log.conf
++# - mod_compress      -> conf.d/compress.conf
++# - mod_status        -> conf.d/status.conf
++# - mod_webdav        -> conf.d/webdav.conf
++# - mod_cml           -> conf.d/cml.conf
++# - mod_evhost        -> conf.d/evhost.conf
++# - mod_simple_vhost  -> conf.d/simple_vhost.conf
++# - mod_mysql_vhost   -> conf.d/mysql_vhost.conf
++# - mod_trigger_b4_dl -> conf.d/trigger_b4_dl.conf
++# - mod_userdir       -> conf.d/userdir.conf
++# - mod_rrdtool       -> conf.d/rrdtool.conf
++# - mod_ssi           -> conf.d/ssi.conf
++# - mod_cgi           -> conf.d/cgi.conf
++# - mod_scgi          -> conf.d/scgi.conf
++# - mod_fastcgi       -> conf.d/fastcgi.conf
++# - mod_proxy         -> conf.d/proxy.conf
++# - mod_secdownload   -> conf.d/secdownload.conf
++# - mod_expire        -> conf.d/expire.conf
+ 
+ server.modules = (
+   "mod_access",
+@@ -50,123 +39,64 @@
+ #  "mod_usertrack",
+ )
+ 
+-##
+-#######################################################################
++## Config for various Modules
+ 
+-#######################################################################
+-##
+-##  Config for various Modules
+-##
+-
+-##
+-## mod_ssi
+-##
++# mod_ssi
+ #include "conf.d/ssi.conf"
+ 
+-##
+-## mod_status
+-##
++# mod_status
+ #include "conf.d/status.conf"
+ 
+-##
+-## mod_webdav
+-##
++# mod_webdav
+ #include "conf.d/webdav.conf"
+ 
+-##
+-## mod_compress
+-##
++# mod_compress
+ #include "conf.d/compress.conf"
+ 
+-##
+-## mod_userdir
+-##
++# mod_userdir
+ #include "conf.d/userdir.conf"
+ 
+-##
+-## mod_magnet
+-##
++# mod_magnet
+ #include "conf.d/magnet.conf"
+ 
+-##
+-## mod_cml
+-##
++# mod_cml
+ #include "conf.d/cml.conf"
+ 
+-##
+-## mod_rrdtool
+-##
++# mod_rrdtool
+ #include "conf.d/rrdtool.conf"
+ 
+-##
+-## mod_proxy
+-##
++# mod_proxy
+ #include "conf.d/proxy.conf"
+ 
+-##
+-## mod_expire
+-##
++# mod_expire
+ #include "conf.d/expire.conf"
+ 
+-##
+-## mod_secdownload
+-##
++# mod_secdownload
+ #include "conf.d/secdownload.conf"
+ 
+-##
+-#######################################################################
++### CGI modules
+ 
+-#######################################################################
+-##
+-## CGI modules
+-##
+-
+-##
+-## SCGI (mod_scgi)
+-##
++# SCGI (mod_scgi)
+ #include "conf.d/scgi.conf"
+ 
+-##
+-## FastCGI (mod_fastcgi)
+-##
++# FastCGI (mod_fastcgi)
+ #include "conf.d/fastcgi.conf"
+ 
+-##
+-## plain old CGI (mod_cgi)
+-##
++# plain old CGI (mod_cgi)
+ #include "conf.d/cgi.conf"
+ 
+-##
+-#######################################################################
++### VHost Modules
++# Only load ONE of them!
++# You can use conditionals for vhosts aswell.
++# see http://www.lighttpd.net/documentation/configuration.html
+ 
+-#######################################################################
+-##
+-## VHost Modules
+-##
+-##  Only load ONE of them!
+-## ========================
+-##
+-
+-##
+-## You can use conditionals for vhosts aswell.
+-## 
+-## see http://www.lighttpd.net/documentation/configuration.html
+-##
+-
+-##
+-## mod_evhost
+-##
++# mod_evhost
+ #include "conf.d/evhost.conf"
+ 
+-##
+-## mod_simple_vhost
+-##
++# mod_simple_vhost
+ #include "conf.d/simple_vhost.conf"
+ 
+-##
+-## mod_mysql_vhost
+-##
++# mod_mysql_vhost
+ #include "conf.d/mysql_vhost.conf"
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
+diff -urN lighttpd-1.4.28/doc/config/vhosts.d/vhosts.template lighttpd-1.4.28_gentoo/doc/config/vhosts.d/vhosts.template
+--- lighttpd-1.4.28/doc/config/vhosts.d/vhosts.template	2010-07-11 20:01:32.000000000 +0300
++++ lighttpd-1.4.28_gentoo/doc/config/vhosts.d/vhosts.template	2010-10-22 16:27:01.000000000 +0300
+@@ -1,23 +1,18 @@
+-#######################################################################
+-##
+-## For more examples check:
+-##
+-## http://www.lighttpd.net/documentation/configuration.html#conditional-configuration
+-##
++# For more examples check:
++# http://www.lighttpd.net/documentation/configuration.html#conditional-configuration
++
+ $HTTP["host"] == "download.example.com" {
+   var.server_name = "download.example.com"
+ 
+   server.name = server_name
+-  ##
+-  ## use trigger before download
+-  ## 
++
++  # use trigger before download
+   include "conf.d/trigger_b4_dl.conf"
+ 
+   server.document-root = vhosts_dir + "/example.com/download/htdocs"
+-  ##
+-  ## use a seperate access log file
+-  ## At the moment you cant have different error log files.
+-  ##
++
++  # use a seperate access log file
++  # At the moment you cant have different error log files.
+   accesslog.filename          = log_root + "/" + server_name "/access.log"
+ }
+ 
+@@ -29,5 +24,4 @@
+   server.document-root = vhosts_dir + "/ssl-localhost/pages/"
+ }
+ 
+-##
+-#######################################################################
++# vim: set ft=conf foldmethod=marker et :
+\ No newline at end of file
