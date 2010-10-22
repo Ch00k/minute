@@ -138,11 +138,14 @@ src_install() {
 		sed -i 's/after famd/need famd/g' "${D}"/etc/init.d/lighttpd
 
 	# configs
+	epatch "${FILESDIR}/lighttpd_configs.patch"
 	insinto /etc/lighttpd
-	doins "${FILESDIR}"/lighttpd.conf
-	doins "${FILESDIR}"/modules.conf
+	doins "${WORKDIR}"/${P}/doc/config/lighttpd.conf
+	doins "${WORKDIR}"/${P}/doc/config/modules.conf
 	insinto /etc/lighttpd/conf.d
 	doins "${WORKDIR}"/${P}/doc/config/conf.d/*.conf
+	insinto /etc/lighttpd/vhosts.d
+	doins "${WORKDIR}"/${P}/doc/config/vhosts.d/vhosts.template
 	# Secure directory for fastcgi sockets
 	keepdir /var/run/lighttpd/
 	fperms 0750 /var/run/lighttpd/
