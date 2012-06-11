@@ -7,15 +7,17 @@ EAPI=3
 PYTHON_DEPEND="2"
 RESTRICT_PYTHON_ABIS="3.*"
 
-inherit distutils
+inherit distutils git-2
+
+EGIT_REPO_URI="git://github.com/Ch00k/gun.git"
 
 DESCRIPTION="Gentoo Updates Notifier"
 HOMEPAGE="https://github.com/Ch00k/gun"
-SRC_URI="https://github.com/downloads/Ch00k/${PN}/${P}.tar.gz"
+SRC_URI=""
 
 LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS=""
 IUSE=""
 
 RDEPEND="dev-python/xmpppy"
